@@ -1,0 +1,45 @@
+body {
+  background-color: beige;
+}
+
+p {
+  font-size: 24px;
+}
+
+input,
+button {
+  padding: 5px;
+}
+
+input {
+  width: 150px;
+}
+
+#headings,
+.probability {
+  font-size: 0;
+}
+
+h2,
+.probability > div {
+  display: inline-block;
+  font-size: 24px;
+}
+
+.probability {
+  font-family: "Courier New", Courier, monospace;
+  margin-bottom: 5px;
+}
+
+.roll {
+  width: 50px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.experimental,
+.theoretical,
+.difference {
+  width: 175px;
+  text-align: right;
+}
