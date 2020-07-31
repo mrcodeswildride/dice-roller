@@ -16,7 +16,7 @@ function rollDice() {
     }
     else {
       probabilities.innerHTML = ``
-      let counts = {}
+      let counts = []
 
       for (let i = 2; i <= 12; i++) {
         counts[i] = 0
