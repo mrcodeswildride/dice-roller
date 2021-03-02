@@ -2,8 +2,8 @@
 <html>
 
 <head>
-	<title>Probability</title>
-	<meta name="viewport" content="width=device-width, initial-scale=0.5">
+	<title>Dice Roller</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="style.css" rel="stylesheet">
 	<script src="script.js" defer>
 
@@ -11,23 +11,12 @@
 </head>
 
 <body>
-	<h1>Probability</h1>
-
-	<p>
-		This program compares the experimental probabilities of rolling two six-sided sice with their theoretical probabilities.
-	</p>
+	<h1>Dice Roller</h1>
 
 	<input type="number" min="1" max="1000000" placeholder="times to roll" id="number">
-  <button id="rollButton">Roll dice</button>
+  <button id="rollButton">Roll two dice</button>
 
-  <div id="headings">
-    <h2 class="roll">Roll</h2>
-    <h2 class="experimental">Experimental</h2>
-    <h2 class="theoretical">Theoretical</h2>
-    <h2 class="difference">Difference</h2>
-  </div>
-
-  <div id="probabilities"></div>
+  <div id="box"></div>
 </body>
 
 </html>

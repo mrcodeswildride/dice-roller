@@ -1,6 +1,6 @@
 let number = document.getElementById(`number`)
 let rollButton = document.getElementById(`rollButton`)
-let probabilities = document.getElementById(`probabilities`)
+let box = document.getElementById(`box`)
 
 rollButton.addEventListener(`click`, rollDice)
 
@@ -12,11 +12,10 @@ function rollDice() {
 
   if (numberValue != `` && !isNaN(numberValue)) {
     if (numberValue < 1 || numberValue > 1000000) {
-      probabilities.innerHTML = `Times to roll must be between 1 and 1,000,000.`
+      box.innerHTML = `Times to roll must be between 1 and 1,000,000.`
     }
     else {
-      probabilities.innerHTML = ``
-      let counts = []
+      let counts = {}
 
       for (let i = 2; i <= 12; i++) {
         counts[i] = 0
@@ -30,34 +29,13 @@ function rollDice() {
         counts[rollNum]++
       }
 
+      box.innerHTML = ``
+      createRow(`Roll`, `<strong>Frequency</strong>`)
+
       for (let i = 2; i <= 12; i++) {
-        let experimental = (counts[i] / numberValue) * 100
-        let theoretical = ((6 - Math.abs(7 - i)) / 36) * 100
-        let difference = Math.abs(experimental - theoretical)
+        let percent = (counts[i] / numberValue) * 100
 
-        let probability = document.createElement(`div`)
-        probability.classList.add(`probability`)
-        probabilities.appendChild(probability)
-
-        let rollDiv = document.createElement(`div`)
-        rollDiv.classList.add(`roll`)
-        rollDiv.innerHTML = i
-        probability.appendChild(rollDiv)
-
-        let experimentalDiv = document.createElement(`div`)
-        experimentalDiv.classList.add(`experimental`)
-        experimentalDiv.innerHTML = `${experimental.toFixed(2)}%`
-        probability.appendChild(experimentalDiv)
-
-        let theoreticalDiv = document.createElement(`div`)
-        theoreticalDiv.classList.add(`theoretical`)
-        theoreticalDiv.innerHTML = `${theoretical.toFixed(2)}%`
-        probability.appendChild(theoreticalDiv)
-
-        let differenceDiv = document.createElement(`div`)
-        differenceDiv.classList.add(`difference`)
-        differenceDiv.innerHTML = `${difference.toFixed(2)}%`
-        probability.appendChild(differenceDiv)
+        createRow(i, `${percent.toFixed(2)}%`)
       }
     }
   }
@@ -69,4 +47,20 @@ function keyPressed(event) {
   if (event.keyCode == 13) {
     rollDice()
   }
+}
+
+function createRow(key, value) {
+  let row = document.createElement(`div`)
+  row.classList.add(`row`)
+  box.appendChild(row)
+
+  let keyDiv = document.createElement(`div`)
+  keyDiv.classList.add(`key`)
+  keyDiv.innerHTML = key
+  row.appendChild(keyDiv)
+
+  let valueDiv = document.createElement(`div`)
+  valueDiv.classList.add(`value`)
+  valueDiv.innerHTML = value
+  row.appendChild(valueDiv)
 }
