@@ -1,6 +1,6 @@
 let number = document.getElementById(`number`)
 let rollButton = document.getElementById(`rollButton`)
-let box = document.getElementById(`box`)
+let table = document.getElementById(`table`)
 
 rollButton.addEventListener(`click`, rollDice)
 
@@ -10,49 +10,39 @@ number.focus()
 function rollDice() {
   let numberValue = number.value.trim()
 
-  if (numberValue != `` && !isNaN(numberValue)) {
-    if (numberValue < 1 || numberValue > 1000000) {
-      box.innerHTML = `Times to roll must be between 1 and 1,000,000.`
+  if (numberValue < 1 || numberValue > 1000000) {
+    table.innerHTML = `Times to roll must be between 1 and 1,000,000.`
+  } else {
+    let rolls = {}
+
+    for (let i = 2; i <= 12; i++) {
+      rolls[i] = 0
     }
-    else {
-      let counts = {}
 
-      for (let i = 2; i <= 12; i++) {
-        counts[i] = 0
-      }
+    for (let i = 0; i < numberValue; i++) {
+      let die1 = Math.floor(Math.random() * 6) + 1
+      let die2 = Math.floor(Math.random() * 6) + 1
+      let roll = die1 + die2
 
-      for (let i = 0; i < numberValue; i++) {
-        let die1 = Math.floor(Math.random() * 6) + 1
-        let die2 = Math.floor(Math.random() * 6) + 1
-        let rollNum = die1 + die2
+      rolls[roll]++
+    }
 
-        counts[rollNum]++
-      }
+    table.innerHTML = ``
+    makeRow(`Roll`, `<strong>Frequency</strong>`)
 
-      box.innerHTML = ``
-      createRow(`Roll`, `<strong>Frequency</strong>`)
-
-      for (let i = 2; i <= 12; i++) {
-        let percent = (counts[i] / numberValue) * 100
-
-        createRow(i, `${percent.toFixed(2)}%`)
-      }
+    for (let i = 2; i <= 12; i++) {
+      let percent = (rolls[i] / numberValue) * 100
+      makeRow(i, `${percent.toFixed(2)}%`)
     }
   }
 
   number.focus()
 }
 
-function keyPressed(event) {
-  if (event.keyCode == 13) {
-    rollDice()
-  }
-}
-
-function createRow(key, value) {
+function makeRow(key, value) {
   let row = document.createElement(`div`)
   row.classList.add(`row`)
-  box.appendChild(row)
+  table.appendChild(row)
 
   let keyDiv = document.createElement(`div`)
   keyDiv.classList.add(`key`)
@@ -63,4 +53,10 @@ function createRow(key, value) {
   valueDiv.classList.add(`value`)
   valueDiv.innerHTML = value
   row.appendChild(valueDiv)
+}
+
+function keyPressed(event) {
+  if (event.keyCode == 13) {
+    rollDice()
+  }
 }
